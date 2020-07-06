@@ -47,8 +47,8 @@ cities = [
       price: price,
       sold: sold,
       sold_price: sold_price,
-      bed: rand(1..8),
-      bath: rand(1..8),
+      beds: rand(1..8),
+      baths: rand(1..8),
       sq_ft: rand(1000..7000),
       agent_id: a.id,
     )

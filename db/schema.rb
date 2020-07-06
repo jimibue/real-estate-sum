@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2020_07_06_195534) do
     t.float "price"
     t.boolean "sold"
     t.float "sold_price"
-    t.integer "bed"
-    t.integer "bath"
+    t.integer "beds"
+    t.integer "baths"
     t.integer "sq_ft"
     t.bigint "agent_id", null: false
     t.datetime "created_at", precision: 6, null: false

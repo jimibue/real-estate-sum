@@ -4,8 +4,8 @@ class CreateProperties < ActiveRecord::Migration[6.0]
       t.float :price
       t.boolean :sold
       t.float :sold_price
-      t.integer :bed
-      t.integer :bath
+      t.integer :beds
+      t.integer :baths
       t.integer :sq_ft
       t.belongs_to :agent, null: false, foreign_key: true
 
