@@ -5,16 +5,16 @@ import axios from "axios";
 export default function Available() {
   const [agents, setAgents] = useState([]);
 
-  formatData(data){
-    []
+  // formatData(data){
+  //   []
 
-  }
+  // }
 
   async function getAgentData() {
     let res = await axios.get("/api/properties");
 
-     //TODO:  Format data
-    formatData(res.data)
+    //TODO:  Format data
+    formatData(res.data);
     debugger;
 
     // {beds: 4
@@ -34,8 +34,6 @@ export default function Available() {
   useEffect(() => {
     //TODO: setup axios call
     getAgentData();
-
-  
 
     setAgents([
       {
