@@ -5,10 +5,7 @@ import axios from "axios";
 export default function Available() {
   const [agents, setAgents] = useState([]);
 
-  // formatData(data){
-  //   []
-
-  // }
+  function formatData(data) {}
 
   async function getAgentData() {
     let res = await axios.get("/api/properties");
