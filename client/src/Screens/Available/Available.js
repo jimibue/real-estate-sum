@@ -5,96 +5,48 @@ import axios from "axios";
 export default function Available() {
   const [agents, setAgents] = useState([]);
 
-  function formatData(data) {}
+  function formatData(data) {
+    const agents = [];
+    const agentsEmails = data.map((d) => d.email);
+
+    const agentsUniqueEmails = [...new Set(agentsEmails)];
+    agentsUniqueEmails.forEach((agentEmail) => {
+      const properties = data.filter((d) => d.email == agentEmail);
+      const { first_name, last_name, email } = properties[0];
+
+      const aProperties = properties.map((p) => {
+        const { id, price, sold, beds, baths, sq_ft, city, zip, street } = p;
+        return { id, price, sold, beds, baths, sq_ft, city, zip, street };
+      });
+
+      agents.push({ first_name, last_name, email, properties: aProperties });
+      // properties is one array with many properties but, the agent info is the same
+    });
+
+    return agents;
+  }
 
   async function getAgentData() {
     let res = await axios.get("/api/properties");
 
-    //TODO:  Format data
-    formatData(res.data);
-    debugger;
-
-    // {beds: 4
-    //   baths: 8
-    // city: "Sandy"
-    // email: "xuan@rohan.com"
-    // first_name: "Earlean"
-    // id: 1
-    // last_name: "O'Hara"
-    // price: 620756
-    // sold: false
-    // sq_ft: 5335
-    // street: "228 Abernathy Burg"
-    // zip: "31593-7711"}
+    const agents = formatData(res.data);
+    setAgents(agents);
   }
 
   useEffect(() => {
     //TODO: setup axios call
-    getAgentData();
 
-    setAgents([
-      {
-        agent_id: "1",
-        first_name: "John",
-        last_name: "",
-        properties: [
-          {
-            id: 1,
-            price: "12341234",
-            beds: 2,
-            baths: 3,
-            sq_ft: 2334,
-            street: "131233",
-            city: "131df233",
-            zip: "131df233",
-          },
-          {
-            id: 1,
-            price: "12341234",
-            beds: 2,
-            baths: 3,
-            sq_ft: 2334,
-            street: "131233",
-            city: "131df233",
-            zip: "131df233",
-          },
-        ],
-      },
-      {
-        agent_id: "1",
-        first_name: "John",
-        last_name: "",
-        properties: [
-          {
-            id: 3,
-            price: "12asfd341234",
-            beds: 2,
-            baths: 3,
-            sq_ft: 2334,
-            street: "131233",
-            city: "131df233",
-            zip: "131df233",
-          },
-          {
-            id: 4,
-            price: "sdf41234",
-            beds: 2,
-            baths: 3,
-            sq_ft: 2334,
-            street: "131233",
-            city: "131df233",
-            zip: "131df233",
-          },
-        ],
-      },
-    ]);
+    getAgentData();
   }, []);
 
   return (
     <div>
       {agents.map((agent) => (
         <div>
-          <h1> {agent.first_name}</h1>
+          <h1>
+            {agent.first_name} {agent.last_name}
+          </h1>
+          <p>{agent.email}</p>
           <AvailableTable properties={agent.properties} />
           <hr />
         </div>
