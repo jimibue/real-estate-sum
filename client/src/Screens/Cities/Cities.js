@@ -38,14 +38,13 @@ export default class Cities extends React.Component {
   };
   getProperties() {
     const { city } = this.state;
-    // TODO use real api once done
-    Axios.get("/api/citiesz/:city")
+    Axios.get(`/api/cities/${city}`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+        this.setState({ properties: res.data });
       })
       .catch((e) => {
-        // TODO move up to then and use real data, actualy handle error
-        this.setState({ properties: p });
+        //TODO handle error
       });
   }
   render() {
