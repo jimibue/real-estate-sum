@@ -11,16 +11,11 @@ export default function (props) {
     //TODO: axios call here
     try {
       //assuming when api is ready
-      let res = await axios.get("/api/agentsxx");
+      let res = await axios.get("/api/agents");
       setAgents(res.data);
       setShowBuyers(true);
     } catch (e) {
-      // normally you don't want to do this here, but I am expecting this call to fail
-      setAgents([
-        { first_name: "agent", last_name: "1", id: 1 },
-        { first_name: "agent", last_name: "2", id: 2 },
-      ]);
-      setShowBuyers(true);
+      //TODO: error handling
     }
   }
   useEffect(() => {
@@ -46,7 +41,7 @@ export default function (props) {
     const agentId = value;
     //TODO axios call using value(ie agent id) to get buyers
     try {
-      const res = await axios.get(`/api/xagent_buyersx/${agentId}`);
+      const res = await axios.get(`/api/agents/${agentId}`);
       setBuyers(res.data);
     } catch (e) {
       setBuyers([

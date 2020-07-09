@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get "cities/:city", to: "properties#city"
 
     get "distinct_cities", to: "properties#distinct_cities"
-    resources :agents, only: [:index]
+    resources :agents, only: [:index, :show]
     # get "agents", to: "agents#index"
 
     #TODO:: route to get distinct cites
