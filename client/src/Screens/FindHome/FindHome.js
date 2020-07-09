@@ -44,10 +44,7 @@ export default function (props) {
       const res = await axios.get(`/api/agents/${agentId}`);
       setBuyers(res.data);
     } catch (e) {
-      setBuyers([
-        { first_name: "buyer", last_name: "1", id: 1 },
-        { first_name: "buyer", last_name: "2", id: 2 },
-      ]);
+      //TODO: add error handling
     }
   }
   async function getBuyersList(e, { value }) {
