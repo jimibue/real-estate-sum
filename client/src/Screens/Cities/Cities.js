@@ -7,27 +7,21 @@ const options = cities.map((c) => {
   return { key: c, text: c, value: c };
 });
 
-const p = [
-  {
-    price: 123234.0,
-    street: "123456 maywood",
-    beds: 12,
-    baths: 3,
-    sq_ft: 1232,
-  },
-  {
-    price: 1233234.0,
-    street: "123456 lynwood",
-    beds: 3,
-    baths: 5,
-    sq_ft: 1200,
-  },
-];
 export default class Cities extends React.Component {
   state = {
     city: "",
     properties: [],
   };
+
+  // #TODO:: axios call and format data
+  componentDidMount() {
+    // axios call to get distinct cities
+    // format data for options
+    //const cities = ["draper", "sandy", "SLC"];
+    // const options = cities.map((c) => {
+    //   return { key: c, text: c, value: c };
+    // });
+  }
   handleChange = (e, { value }) => {
     console.log(e);
     console.log(value);
