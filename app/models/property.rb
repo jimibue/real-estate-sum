@@ -26,4 +26,13 @@ class Property < ApplicationRecord
       .joins("INNER JOIN addresses a ON a.property_id = properties.id")
       .where("LOWER(a.city) = ? AND properties.sold <> true", city.downcase)
   end
+
+
+  def self.city_cost
+    select("DISTINCT city, STRING_AGG( CAST(price AS VARCHAR), ',' ORDER BY price DESC) AS prices, COUNT(*) price")
+      .from("addresses")
+      .joins("INNER JOIN properties p ON addresses.property_id = p.id")
+      .where("p.sold IS TRUE")
+      .group("city")
+  end
 end

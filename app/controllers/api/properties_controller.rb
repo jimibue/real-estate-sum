@@ -1,7 +1,11 @@
 class Api::PropertiesController < ApplicationController
+  before_action :set_page
+
   def index
-    render json: Property.available
+    # render json: Property.available
     # render json: Property.all
+    # render json: Property.page(@page).available
+    render json: { properties: Property.page(@page).available, total_pages: Property.page(@page).total_pages }
   end
 
   def city
@@ -12,5 +16,15 @@ class Api::PropertiesController < ApplicationController
   def distinct_cities
     render json: Address.distinct_city
     # render json: Property.all
+  end
+
+  def cost_by_city
+    render json: Property.city_cost
+  end
+
+  private
+
+  def set_page
+    @page = params[:page] || 1
   end
 end
