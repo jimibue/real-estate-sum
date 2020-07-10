@@ -2,35 +2,19 @@ import React from "react";
 import { Form, TableHeader, TableBody, Table } from "semantic-ui-react";
 import Axios from "axios";
 
-const cities = [
-  "Sandy",
-  "Draper",
-  "SLC",
-  "Orem",
-  "Provo",
-  "Ogden",
-  "Layton",
-  "Midvale",
-  "Murray",
-];
-const options = cities.map((c) => {
-  return { key: c, text: c, value: c };
-});
-
 export default class Cities extends React.Component {
   state = {
     city: "",
+    cities: [],
     properties: [],
   };
 
   // #TODO:: axios call and format data
-  componentDidMount() {
-    // axios call to get distinct cities
-    // format data for options
-    //const cities = ["draper", "sandy", "SLC"];
-    // const options = cities.map((c) => {
-    //   return { key: c, text: c, value: c };
-    // });
+  async componentDidMount() {
+    let res = await Axios.get("/api/distinct_cities");
+    this.setState({ cities: res.data, city: res.data[0].city }, () => {
+      this.getProperties();
+    });
   }
   handleChange = (e, { value }) => {
     console.log(e);
@@ -40,8 +24,15 @@ export default class Cities extends React.Component {
       this.getProperties();
     });
   };
+
+  getOptions() {
+    return this.state.cities.map((c) => {
+      return { key: c.city, text: c.city, value: c.city };
+    });
+  }
   getProperties() {
     const { city } = this.state;
+    console.log(city);
     Axios.get(`/api/cities/${city}`)
       .then((res) => {
         console.log(res);
@@ -56,7 +47,11 @@ export default class Cities extends React.Component {
     return (
       <div>
         {/* select Input */}
-        <Form.Select options={options} onChange={this.handleChange} />
+        <Form.Select
+          value={this.state.city}
+          options={this.getOptions()}
+          onChange={this.handleChange}
+        />
         {/* Table */}
         <Table>
           <TableHeader>

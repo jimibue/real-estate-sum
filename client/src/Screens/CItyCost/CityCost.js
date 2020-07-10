@@ -4,6 +4,7 @@ import Axios from "axios";
 export default class CityCost extends React.Component {
   state = { cityTextData: [] };
   async componentDidMount() {
+    debugger;
     console.log("mounted");
     const res = await Axios.get("/api/city_cost");
 
@@ -30,6 +31,7 @@ export default class CityCost extends React.Component {
   }
 
   render() {
+    debugger;
     return (
       <div>
         <h1>City Cost</h1>
